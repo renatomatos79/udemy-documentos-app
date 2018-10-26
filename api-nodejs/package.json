@@ -1,0 +1,30 @@
+{
+  "name": "admin-node-firebase",
+  "version": "1.0.6",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "startw": "set DEBUG=treinamento:* && node dist/dev.js",
+    "startl": "export DEBUG=treinamento:* && node ./dist/dev.js"
+  },
+  "author": "Renato Matos",
+  "license": "ISC",
+  "dependencies": {
+    "base-64": "^0.1.0",
+    "body-parser": "^1.18.3",
+    "config": "^1.30.0",
+    "cors": "^2.8.4",
+    "debug": "^3.1.0",
+    "express": "^4.16.3",
+    "firebase": "^5.2.0",
+    "firebase-admin": "^5.13.0",
+    "fs": "0.0.1-security",
+    "method-override": "^3.0.0",
+    "mime-types": "^2.1.19",
+    "moment": "^2.22.2",
+    "path": "^0.12.7",
+    "requestify": "^0.2.5",
+    "rsvp": "^4.8.3"
+  }
+}

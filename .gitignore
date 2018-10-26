@@ -1,0 +1,59 @@
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# upload content
+/upload/*.jpg
+/upload/*.jpeg
+/upload/*.mp4
+/upload/*.png
+
+# VS Source Control
+.vs
+
+
+# Removendo pasta de upload do projeto nodejs
+treinamentotv-firebase-nodejs\upload
+
+# Testes
+TestResults
+
+# Compilados e Logs
+bin
+obj
+Log
+logs
+
+# Pacotes 
+packages
+
+# As seguintes extensoes
+*_i.c
+*_p.c
+*_i.h
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.log
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+
+# modulos node
+node_modules
