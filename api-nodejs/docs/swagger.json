@@ -27,10 +27,6 @@
     {
       "name": "user",
       "description": "Contém os métodos necessáros para gerenciar seus usuários"
-    },
-    {
-      "name": "upload",
-      "description": "Contém os métodos para upload e deleção de imagens no Google Firebase Storage"
     }
   ],
   "schemes": [
@@ -42,8 +38,8 @@
         "tags": [
           "check"
         ],
-        "summary": "retorna a hora no servidor",
-        "description": "retorna o horário no servidor no formato DD/MM/YYYY hh:mm:ss a",
+        "summary": "retorna o horário no servidor no formato DD/MM/YYYY hh:mm:ss a",
+        "description": "",
         "operationId": "time",
         "consumes": [
           "application/json"
@@ -67,10 +63,10 @@
     "/check/ping": {
       "get": {
         "tags": [
-          "ping"
+          "check"
         ],
-        "summary": "retorna a string PONG",
-        "description": "retorna uma string PONG para saber se o servidor está respondendo as requisições",
+        "summary": "retorna uma string PONG para saber se o servidor está respondendo as requisições",
+        "description": "",
         "operationId": "ping",
         "consumes": [
           "application/json"
@@ -97,10 +93,10 @@
     "/check/version": {
       "get": {
         "tags": [
-          "version"
+          "check"
         ],
-        "summary": "retorna informações sobre a versão da API",
-        "description": "retorna um objeto contendo informações sobre a API como: versão, build, nome e descrição",
+        "summary": "retorna um objeto contendo informações sobre a API como: versão, build, nome e descrição",
+        "description": "",
         "operationId": "version",
         "consumes": [
           "application/json"
@@ -118,13 +114,13 @@
         }
       }
     },
-    "/document/{userId}/documents": {
+    "/user/{userId}/documents": {
       "get": {
         "tags": [
           "document"
         ],
-        "summary": "retorna todos os documentos associados a um determinado usuário",
-        "description": "retorna a relação de documentos que está associada ao usuário informada por parâmetro",
+        "summary": "retorna a relação de documentos que está associada ao usuário",
+        "description": "",
         "operationId": "getUserDocuments",
         "consumes": [
           "application/json"
@@ -133,6 +129,13 @@
           "application/json"
         ],
         "parameters": [
+          {
+            "name": "AccessToken",
+            "in": "header",
+            "description": "Token retornado após autenticação do usuário na API",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "userId",
             "in": "path",
@@ -146,8 +149,411 @@
           "200": {
             "description": "OK",
             "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Document"
+              }
+            }
+          },
+          "400": {
+            "description": "documento mal formatado. Verificar o preenchimento dos campos do documento como título e descrição"
+          },
+          "403": {
+            "description": "acesso negado"
+          },
+          "404": {
+            "description": "usuário não encontrado"
+          }
+        }
+      }
+    },
+    "/user/{userId}/document": {
+      "post": {
+        "tags": [
+          "document"
+        ],
+        "summary": "cria um novo documento para o usuário",
+        "description": "",
+        "operationId": "createDocument",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "AccessToken",
+            "in": "header",
+            "description": "Token retornado após autenticação do usuário na API",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "identificador do usuário",
+            "required": true,
+            "type": "integer",
+            "format": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Objeto documento que será adicionado ao usuário",
+            "required": true,
+            "schema": {
               "$ref": "#/definitions/Document"
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Document"
+            }
+          },
+          "403": {
+            "description": "acesso negado"
+          },
+          "404": {
+            "description": "usuário não encontrado"
+          }
+        }
+      }
+    },
+    "/document/{documentId}": {
+      "put": {
+        "tags": [
+          "document"
+        ],
+        "summary": "edita um documento",
+        "description": "",
+        "operationId": "updateDocument",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "AccessToken",
+            "in": "header",
+            "description": "Token retornado após autenticação do usuário na API",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "identificador do usuário",
+            "required": true,
+            "type": "integer",
+            "format": "integer"
+          },
+          {
+            "name": "documentId",
+            "in": "path",
+            "description": "identificador do documento",
+            "required": true,
+            "type": "integer",
+            "format": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Objeto documento que será editado",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Document"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Document"
+            }
+          },
+          "400": {
+            "description": "documento mal formatado. Verificar o preenchimento dos campos do documento como título e descrição"
+          },
+          "403": {
+            "description": "acesso negado"
+          },
+          "404": {
+            "description": "documento não encontrado"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "document"
+        ],
+        "summary": "remove um documento",
+        "description": "",
+        "operationId": "deleteDocument",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "AccessToken",
+            "in": "header",
+            "description": "Token retornado após autenticação do usuário na API",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "documentId",
+            "in": "path",
+            "description": "identificador do documento",
+            "required": true,
+            "type": "integer",
+            "format": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "acesso negado"
+          },
+          "404": {
+            "description": "documento não encontrado"
+          }
+        }
+      }
+    },
+    "/document/{documentId}/upload": {
+      "post": {
+        "tags": [
+          "document"
+        ],
+        "summary": "associa um arquivo a um documento",
+        "description": "",
+        "operationId": "uploadDocument",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "AccessToken",
+            "in": "header",
+            "description": "Token retornado após autenticação do usuário na API",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "documentId",
+            "in": "path",
+            "description": "identificador do documento",
+            "required": true,
+            "type": "integer",
+            "format": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Objeto associado ao arquivo que está sendo anexado ao documento",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FileUpload"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "documento mal formatado. Verificar o preenchimento do objeto FileUpload"
+          },
+          "403": {
+            "description": "acesso negado"
+          },
+          "404": {
+            "description": "documento não encontrado"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "document"
+        ],
+        "summary": "remove o anexo associado ao documento",
+        "description": "",
+        "operationId": "deleteDocumentFile",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "AccessToken",
+            "in": "header",
+            "description": "Token retornado após autenticação do usuário na API",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "documentId",
+            "in": "path",
+            "description": "identificador do documento",
+            "required": true,
+            "type": "integer",
+            "format": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "acesso negado"
+          },
+          "404": {
+            "description": "documento não encontrado"
+          }
+        }
+      }
+    },
+    "/user": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "cria um novo usuário",
+        "description": "",
+        "operationId": "createUser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "AccessToken",
+            "in": "header",
+            "description": "Token retornado após autenticação do usuário na API",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Objeto usuário que será cadastrado",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewUser"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "documento mal formatado. Verificar o preenchimento dos campos nome, email e senha"
+          },
+          "403": {
+            "description": "acesso negado"
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "autentica o usuário na api",
+        "description": "",
+        "operationId": "login",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Objeto login usado para autenticação",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string",
+              "example": {
+                "accessToken": "f1687c4c-72b9-43b6-92c8-c4c029cd2429"
+              }
+            }
+          },
+          "400": {
+            "description": "documento mal formatado. Verificar o preenchimento dos campos email e senha"
+          }
+        }
+      }
+    },
+    "/user/users": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "retorna a relação de usuários",
+        "description": "",
+        "operationId": "getUsers",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "AccessToken",
+            "in": "header",
+            "description": "Token retornado após autenticação do usuário na API",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          },
+          "403": {
+            "description": "acesso negado"
           }
         }
       }
@@ -168,6 +574,23 @@
         }
       }
     },
+    "NewUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
     "User": {
       "type": "object",
       "properties": {
@@ -175,6 +598,20 @@
           "type": "integer"
         },
         "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "Login": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
           "type": "string"
         }
       }
@@ -185,9 +622,6 @@
         "id": {
           "type": "integer",
           "format": "int64"
-        },
-        "owner": {
-          "$ref": "#/definitions/User"
         },
         "title": {
           "type": "string",
@@ -212,6 +646,24 @@
         },
         "updateUser": {
           "$ref": "#/definitions/User"
+        }
+      }
+    },
+    "FileUpload": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "laudo.pdf"
+        },
+        "size": {
+          "type": "integer",
+          "description": "tamanho em bytes",
+          "example": "60040"
+        },
+        "content": {
+          "type": "string",
+          "example": "Conteúdo do arquivo em formato base64"
         }
       }
     }

@@ -26,7 +26,10 @@ documentController.prototype.getDocuments = function(request, response, next){
 };
 
 documentController.prototype.createDocument = function(request, response, next){
-    // captura os parametros
+    // captura o usuário associado ao documento
+    var userId = request.params.userId;
+    
+    // captura os parametros do documento
     var id = request.body.id;
     var store_id = request.body.store_id;
     var store_name = request.body.store_name;

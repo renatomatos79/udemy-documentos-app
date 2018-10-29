@@ -6,6 +6,7 @@ module.exports = function(firebaseAdmin){
 
     this.controller = require("../controller/document")(firebaseAdmin);
 
+    router.put('/:id', controller.updateDocument.bind(controller));
     router.delete('/:id', controller.deleteDocument.bind(controller));
     
     return router;

@@ -8,6 +8,7 @@ module.exports = function(firebaseAdmin){
     this.userController = require("../controller/user")(firebaseAdmin);
 
     router.get('/:userId/documents', documentController.getDocuments.bind(controller));
+    router.post('/:userId/document', documentController.createDocument.bind(controller));
     
     router.get('/users', userController.getUsers.bind(controller));
     router.post('/login', userController.login.bind(controller));
