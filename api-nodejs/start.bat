@@ -1,2 +1,2 @@
 set DEBUG=treinamento:*
-node dist/dev.js
+nodemon dist/dev.js

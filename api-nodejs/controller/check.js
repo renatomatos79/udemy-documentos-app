@@ -8,9 +8,7 @@ function checkController(firebaseAdmin){
 
 checkController.prototype.time = function(request, response, next){
     response.json({
-        "now": time.now(),
-        "utc": time.utc(),
-        "utc-min-match": time.utc_min_match()
+        "time": time.now()
     });
 };
 

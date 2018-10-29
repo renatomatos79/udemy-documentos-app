@@ -1,0 +1,219 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Treinamento Google Firebase. API para cadastro de documentos e usuários.",
+    "version": "1.0.0",
+    "title": "Treinamento Google Firebase API",
+    "termsOfService": "http://treinamnento.firebase.com.br/terms/",
+    "contact": {
+      "email": "renato.matos79@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:21088",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "check",
+      "description": "Contém os métodos básicos para validar o funcionamento da api"
+    },
+    {
+      "name": "document",
+      "description": "Contém os métodos necessáros para gerenciar seus documentos"
+    },
+    {
+      "name": "user",
+      "description": "Contém os métodos necessáros para gerenciar seus usuários"
+    },
+    {
+      "name": "upload",
+      "description": "Contém os métodos para upload e deleção de imagens no Google Firebase Storage"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/check/time": {
+      "get": {
+        "tags": [
+          "check"
+        ],
+        "summary": "retorna a hora no servidor",
+        "description": "retorna o horário no servidor no formato DD/MM/YYYY hh:mm:ss a",
+        "operationId": "time",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "requisição realizada com sucesso! retorna a hora no servidor web",
+            "schema": {
+              "type": "object",
+              "example": {
+                "time": "28/10/2018 09:34:42 pm"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/check/ping": {
+      "get": {
+        "tags": [
+          "ping"
+        ],
+        "summary": "retorna a string PONG",
+        "description": "retorna uma string PONG para saber se o servidor está respondendo as requisições",
+        "operationId": "ping",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string",
+              "example": {
+                "default": {
+                  "value": "PONG",
+                  "summary": "retorna sempre o valor PONG"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/check/version": {
+      "get": {
+        "tags": [
+          "version"
+        ],
+        "summary": "retorna informações sobre a versão da API",
+        "description": "retorna um objeto contendo informações sobre a API como: versão, build, nome e descrição",
+        "operationId": "version",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Version"
+            }
+          }
+        }
+      }
+    },
+    "/document/{userId}/documents": {
+      "get": {
+        "tags": [
+          "document"
+        ],
+        "summary": "retorna todos os documentos associados a um determinado usuário",
+        "description": "retorna a relação de documentos que está associada ao usuário informada por parâmetro",
+        "operationId": "getUserDocuments",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "identificador do usuário",
+            "required": true,
+            "type": "integer",
+            "format": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Document"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Version": {
+      "type": "object",
+      "properties": {
+        "application-name": {
+          "type": "string"
+        },
+        "application-version": {
+          "type": "string"
+        },
+        "application-description": {
+          "type": "string"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "Document": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "owner": {
+          "$ref": "#/definitions/User"
+        },
+        "title": {
+          "type": "string",
+          "example": "Manual do sistema"
+        },
+        "description": {
+          "type": "string",
+          "example": "Descrição detalhada para uso do sistema"
+        },
+        "createDate": {
+          "type": "string",
+          "format": "DD/MM/YYYY hh:mm:ss a",
+          "example": "28/10/2018 09:34:42 pm"
+        },
+        "createUser": {
+          "$ref": "#/definitions/User"
+        },
+        "updateDate": {
+          "type": "string",
+          "format": "DD/MM/YYYY hh:mm:ss a",
+          "example": "28/10/2018 09:34:42 pm"
+        },
+        "updateUser": {
+          "$ref": "#/definitions/User"
+        }
+      }
+    }
+  }
+}

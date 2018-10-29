@@ -6,15 +6,15 @@ function documentController(firebaseAdmin){
     this.documentFirestore = require("../firebase/document")(firebaseAdmin);
 }
 
-documentController.prototype.documents = function(request, response, next){
-    var user_id = request.params.user_id;
+documentController.prototype.getDocuments = function(request, response, next){
+    var userId = request.params.userId;
     
-    if (strings.isEmpty(user_id) === true){
+    if (strings.isEmpty(userId) === true){
         response.status(404);
-        response.send("user_id não informado");
+        response.send("userId não informado");
     }
     
-    this.documentFirestore.documents()
+    this.documentFirestore.getUserDocuments(userId)
         .then(function(result){
             response.status(201);
             response.send(result);
@@ -25,7 +25,7 @@ documentController.prototype.documents = function(request, response, next){
         });
 };
 
-documentController.prototype.create = function(request, response, next){
+documentController.prototype.createDocument = function(request, response, next){
     // captura os parametros
     var id = request.body.id;
     var store_id = request.body.store_id;
@@ -63,7 +63,7 @@ documentController.prototype.create = function(request, response, next){
     };
 
     // atualiza a base do firestore
-    this.documentFirestore.create(json)
+    this.documentFirestore.createDocument(json)
         .then(function(result){
             response.status(201);
             response.send(result);
@@ -74,7 +74,7 @@ documentController.prototype.create = function(request, response, next){
         });
 };
 
-documentController.prototype.update = function(request, response, next){
+documentController.prototype.updateDocument = function(request, response, next){
     // captura os parametros :id (query string) e :store_name (body)
     var id = request.params.id;
     var store_name = request.body.store_name;
@@ -90,7 +90,7 @@ documentController.prototype.update = function(request, response, next){
     }
 
     // atualiza a base do firestore
-    this.documentFirestore.update(id, store_name)
+    this.documentFirestore.updateDocument(id, store_name)
         .then(function(result){
             response.status(201);
             response.send(result);
@@ -101,7 +101,7 @@ documentController.prototype.update = function(request, response, next){
         });
 };
 
-documentController.prototype.delete = function(request, response, next){
+documentController.prototype.deleteDocument = function(request, response, next){
     // captura os parametros
     var id = request.params.id;
     
@@ -112,7 +112,7 @@ documentController.prototype.delete = function(request, response, next){
     }
 
     // atualiza a base do firestore
-    this.documentFirestore.delete(id)
+    this.documentFirestore.deleteDocument(id)
         .then(function(result){
             response.status(201);
             response.send(result);

@@ -7,7 +7,7 @@ function uploadController(firebaseAdmin){
     this.firebaseAdmin = firebaseAdmin;
 }
 
-uploadController.prototype.create = function(request, response, next){
+uploadController.prototype.createUpload = function(request, response, next){
     var fileContent = request.body.fileContent;
     var remoteFileName = request.body.remoteFileName;
     var self = this;
@@ -43,7 +43,7 @@ uploadController.prototype.create = function(request, response, next){
     });   
 };
 
-uploadController.prototype.delete = function(request, response, next) {   
+uploadController.prototype.deleteUpload = function(request, response, next) {   
     var id = request.params.id; 
     this.firebaseAdmin.fileRemove(id)
     .then(function (result) {
@@ -59,20 +59,6 @@ uploadController.prototype.delete = function(request, response, next) {
         response.send(error);        
     });
 }
-
-uploadController.prototype.help = function(request, response, next){
-    var app = require('../app');
-    var urls = ["", "storage"];
-    var protocol = request.protocol;
-    var hostname = request.hostname;
-    var path = protocol + ":" + "//" + hostname + ":" + app.get("port") +  "/upload/";
-    var result = [];
-    urls.map(function(u){
-        result.push({name:u, url: path + u});
-    });
-    response.status(201);
-    response.json(result);
-};
 
 module.exports = function(firebaseAdmin){
     return new uploadController(firebaseAdmin);

@@ -6,8 +6,8 @@ module.exports = function(firebaseAdmin){
 
     this.controller = require("../controller/upload")(firebaseAdmin);
 
-    router.post('/', controller.create.bind(controller));
-    router.delete('/:id', controller.delete.bind(controller))
+    router.post('/', controller.createUpload.bind(controller));
+    router.delete('/:id', controller.deleteUpload.bind(controller))
     
     return router;
 };

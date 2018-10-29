@@ -6,6 +6,18 @@ function userController(firebaseAdmin){
     this.userList = [];
 }
 
+userController.prototype.getUsers = function(request, response, next){
+    this.firebaseAdmin.auth().getUserByEmail(email)
+        .then(function(userRecord) {
+            response.status(201);
+            response.send( userRecord.toJSON());
+        })
+        .catch(function(error) {
+            response.status(501);
+            response.send(error);
+        });
+};
+
 userController.prototype.login = function(request, response, next){
     // captura os parametros
     var email = request.params.email;
@@ -25,7 +37,7 @@ userController.prototype.login = function(request, response, next){
         });
 };
 
-userController.prototype.create = function(request, response, next){
+userController.prototype.createUser = function(request, response, next){
     // captura os parametros
     var id = request.body.id;
     var _nome = request.body.nome;

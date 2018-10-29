@@ -6,7 +6,7 @@ function timeUtil(){
 };
 
 timeUtil.prototype.now = function(){
-    return this.moment().format('DD/MM/YY hh:mm:ss a');
+    return this.moment().format('DD/MM/YYYY hh:mm:ss a');
 };
 
 timeUtil.prototype.utc = function(){

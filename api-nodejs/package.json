@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "startw": "set DEBUG=treinamento:* && node dist/dev.js",
-    "startl": "export DEBUG=treinamento:* && node ./dist/dev.js"
+    "startw": "set DEBUG=treinamento:* && nodemon dist/dev.js",
+    "startl": "export DEBUG=treinamento:* && nodemon ./dist/dev.js"
   },
   "author": "Renato Matos",
   "license": "ISC",
@@ -25,6 +25,7 @@
     "moment": "^2.22.2",
     "path": "^0.12.7",
     "requestify": "^0.2.5",
-    "rsvp": "^4.8.3"
+    "rsvp": "^4.8.3",
+    "swagger-ui-express": "^4.0.1"
   }
 }

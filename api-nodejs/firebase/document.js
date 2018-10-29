@@ -1,4 +1,4 @@
-var debug = require("debug")("treinamento:firebase:documentFirebase");
+var debug = require("debug")("treinamento:firebase:document");
 var RSVP = require('rsvp');
 var strings = require('../util/strings');
 
@@ -6,8 +6,8 @@ function documentFirebase(firebaseAdmin) {
     this.firebaseAdmin = firebaseAdmin;
 }
 
-documentFirebase.prototype.documents = function(user_id) {
-    debug("treinamento:firebase:documentFirebase.documents...", " => ", user_id);
+documentFirebase.prototype.getUserDocuments = function(user_id) {
+    debug("treinamento:firebase:document.getUserDocuments...", " => ", user_id);
     var self = this;
     var promise = new RSVP.Promise(function(resolve, reject) {
         try
@@ -34,8 +34,8 @@ documentFirebase.prototype.documents = function(user_id) {
     return promise;   
 }
 
-documentFirebase.prototype.create = function(json) {
-    debug("treinamento:firebase:documentFirebase.create...", " => ", json);
+documentFirebase.prototype.createUser = function(json) {
+    debug("treinamento:firebase:document.createUser...", " => ", json);
     var self = this;
     var promise = new RSVP.Promise(function(resolve, reject) {
         try
@@ -56,14 +56,13 @@ documentFirebase.prototype.create = function(json) {
     return promise;   
 }
 
-documentFirebase.prototype.update = function(id, documentName) {
-    debug("treinamento:firebase:documentFirebase.update...", " => ", id);
+documentFirebase.prototype.updateDocument = function(id, documentName) {
+    debug("treinamento:firebase:document.updateDocument...", " => ", id);
     var self = this;
     var promise = new RSVP.Promise(function(resolve, reject) {
         try
         {
             var documentRef = self.firebaseAdmin.firedocument.collection('documents').doc(id);
-            debug("updating...", " => ", documentRef);
             documentRef.update({
                 "document_name" : documentName
             }).then((result) => { 
@@ -80,14 +79,13 @@ documentFirebase.prototype.update = function(id, documentName) {
     return promise;   
 }
 
-documentFirebase.prototype.delete = function(id) {
-    debug("treinamento:firebase:documentFirebase.delete...", " => ", id);
+documentFirebase.prototype.deleteDocument = function(id) {
+    debug("treinamento:firebase:document.deleteDocument...", " => ", id);
     var self = this;
     var promise = new RSVP.Promise(function(resolve, reject) {
         try
         {
             var documentRef = self.firebaseAdmin.firedocument.collection('documents').doc(id);
-            debug("treinamento:documentFirebase.removing...", " => ", documentRef);
             documentRef.delete().then(function(result) {
                 resolve(result)
             }).catch(function(error) {
