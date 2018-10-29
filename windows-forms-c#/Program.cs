@@ -20,7 +20,10 @@ namespace GoogleFirebase
             {
                 if (frmLogin.ShowDialog().Equals(DialogResult.OK))
                 {
-                    Application.Run(new FormMain());
+                    var frmMain = new FormMain();
+                    frmMain.AccessToken = Guid.NewGuid().ToString();
+                    frmMain.Email = frmLogin.Login;
+                    Application.Run(frmMain);
                 }                
             }                
         }

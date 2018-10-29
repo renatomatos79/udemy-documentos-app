@@ -12,6 +12,14 @@ namespace GoogleFirebase
 {
     public partial class FormLogin : Form
     {
+        public string Login
+        {
+            get
+            {
+                return txtLogin.Text;
+            }
+        }
+
         public FormLogin()
         {
             InitializeComponent();
@@ -20,6 +28,14 @@ namespace GoogleFirebase
         private void button1_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            using (var form = new FormUserCreate())
+            {
+                form.ShowDialog();
+            }
         }
     }
 }

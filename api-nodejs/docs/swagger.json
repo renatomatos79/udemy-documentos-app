@@ -446,13 +446,6 @@
         ],
         "parameters": [
           {
-            "name": "AccessToken",
-            "in": "header",
-            "description": "Token retornado após autenticação do usuário na API",
-            "required": true,
-            "type": "string"
-          },
-          {
             "name": "body",
             "in": "body",
             "description": "Objeto usuário que será cadastrado",
@@ -471,9 +464,6 @@
           },
           "400": {
             "description": "documento mal formatado. Verificar o preenchimento dos campos nome, email e senha"
-          },
-          "403": {
-            "description": "acesso negado"
           }
         }
       }
@@ -557,6 +547,82 @@
           }
         }
       }
+    },
+    "/user/{email}/password-recover": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "envia um link ao email do usuário para atualização da senha",
+        "description": "",
+        "operationId": "passwordRecover",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "description": "Email associado a conta do usuário",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Usuário não encontrado"
+          }
+        }
+      }
+    },
+    "/user/{email}/verify": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Envia um LINK para verificação da conta de email do usuário",
+        "description": "",
+        "operationId": "emailVerify",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "AccessToken",
+            "in": "header",
+            "description": "Token retornado após autenticação do usuário na API",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "path",
+            "description": "Email associado a conta do usuário",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "acesso negado"
+          },
+          "404": {
+            "description": "Usuário não encontrado"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -635,17 +701,6 @@
           "type": "string",
           "format": "DD/MM/YYYY hh:mm:ss a",
           "example": "28/10/2018 09:34:42 pm"
-        },
-        "createUser": {
-          "$ref": "#/definitions/User"
-        },
-        "updateDate": {
-          "type": "string",
-          "format": "DD/MM/YYYY hh:mm:ss a",
-          "example": "28/10/2018 09:34:42 pm"
-        },
-        "updateUser": {
-          "$ref": "#/definitions/User"
         }
       }
     },
