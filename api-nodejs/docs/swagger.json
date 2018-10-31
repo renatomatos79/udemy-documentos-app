@@ -130,7 +130,7 @@
         ],
         "parameters": [
           {
-            "name": "AccessToken",
+            "name": "authorization",
             "in": "header",
             "description": "Token retornado após autenticação do usuário na API",
             "required": true,
@@ -183,7 +183,7 @@
         ],
         "parameters": [
           {
-            "name": "AccessToken",
+            "name": "authorization",
             "in": "header",
             "description": "Token retornado após autenticação do usuário na API",
             "required": true,
@@ -239,7 +239,7 @@
         ],
         "parameters": [
           {
-            "name": "AccessToken",
+            "name": "authorization",
             "in": "header",
             "description": "Token retornado após autenticação do usuário na API",
             "required": true,
@@ -304,7 +304,7 @@
         ],
         "parameters": [
           {
-            "name": "AccessToken",
+            "name": "authorization",
             "in": "header",
             "description": "Token retornado após autenticação do usuário na API",
             "required": true,
@@ -348,7 +348,7 @@
         ],
         "parameters": [
           {
-            "name": "AccessToken",
+            "name": "authorization",
             "in": "header",
             "description": "Token retornado após autenticação do usuário na API",
             "required": true,
@@ -402,7 +402,7 @@
         ],
         "parameters": [
           {
-            "name": "AccessToken",
+            "name": "authorization",
             "in": "header",
             "description": "Token retornado após autenticação do usuário na API",
             "required": true,
@@ -499,7 +499,7 @@
             "schema": {
               "type": "string",
               "example": {
-                "accessToken": "f1687c4c-72b9-43b6-92c8-c4c029cd2429"
+                "authorization": "f1687c4c-72b9-43b6-92c8-c4c029cd2429"
               }
             }
           },
@@ -525,7 +525,7 @@
         ],
         "parameters": [
           {
-            "name": "AccessToken",
+            "name": "authorization",
             "in": "header",
             "description": "Token retornado após autenticação do usuário na API",
             "required": true,
@@ -597,7 +597,7 @@
         ],
         "parameters": [
           {
-            "name": "AccessToken",
+            "name": "authorization",
             "in": "header",
             "description": "Token retornado após autenticação do usuário na API",
             "required": true,

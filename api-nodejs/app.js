@@ -7,6 +7,7 @@ var app = express();
 var swaggerUi = require('swagger-ui-express');
 var swaggerDocument = require('./docs/swagger.json');
 var jwt = require("./util/token")()
+var _ = require("lodash")
 
 // server config
 app.use(methodOverride('X-HTTP-Method'));
@@ -32,8 +33,14 @@ app.use(function(req, resp, next){
 
 // router
 app.use('/', function(request, response, next){
-    debug("request => ", request.url);
-    if (request.url === "/api/v1/user/login"){
+    var urls = ["/", "/api/v1/user/login"];
+    var allowed = (request.url === "/") || 
+                  (_.startsWith(request.url, '/api/v1/user/login')) || 
+                  (_.startsWith(request.url, '/api/v1/check')) || 
+                  (_.startsWith(request.url, '/api-docs'));
+
+    debug("url => ", request.url, " allowed => ", allowed);
+    if (allowed) {
         next();
     } else {
         jwt.verify(request, response, next);
