@@ -29,8 +29,12 @@ app.use(function(req, resp, next){
 });
 
 // router
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/v1', require('./routes/index'));
+app.get('*', function(req, res){
+    res.redirect('/api-docs');
+});
+
 
 // error handling : page not found
 app.use(function(req, resp, next){
