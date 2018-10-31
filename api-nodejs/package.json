@@ -11,6 +11,7 @@
   "author": "Renato Matos",
   "license": "ISC",
   "dependencies": {
+    "@types/jsonwebtoken": "^7.2.3",
     "base-64": "^0.1.0",
     "body-parser": "^1.18.3",
     "config": "^1.30.0",
@@ -20,6 +21,7 @@
     "firebase": "^5.2.0",
     "firebase-admin": "^5.13.0",
     "fs": "0.0.1-security",
+    "jsonwebtoken": "^7.4.1",
     "method-override": "^3.0.0",
     "mime-types": "^2.1.19",
     "moment": "^2.22.2",

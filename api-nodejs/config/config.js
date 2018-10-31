@@ -1,23 +1,9 @@
-var db = require("./db.json");
-
-var config = function(){
-    this.environment = process.env["ENV"];
-}
+var config = function(){}
 
 config.prototype.parameters = function() {
-    var dbSettings = {};
-    
-    if (this.environment === "DEV"){
-        dbSettings = db.dev;
-    } else if (this.environment === "HOMOLOG") {
-        dbSettings = db.homolog;
-    } else {
-        dbSettings = db.prod;
-    }
-
     return {
-        "database" : dbSettings,
-        "node" : db.node
+        "tokenIssue" : "treinamento-google-firebase",
+        "tokenPassword" : "treinamento-google-firebase-key"
     }
 }
 

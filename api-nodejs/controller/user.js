@@ -1,5 +1,8 @@
 var debug = require("debug")("treinamento:controller:user");
 var strings = require("../util/strings");
+var jwt = require("jsonwebtoken")
+var config = require("../config/config")()
+var token = require("../util/token")()
 
 function userController(firebaseAdmin){
     this.firebaseAdmin = firebaseAdmin;
@@ -35,6 +38,9 @@ userController.prototype.internalGetAllUsers = function(callback, nextPageToken)
 
 
 userController.prototype.getUsers = function(request, response, next){
+    token.verify(request, response, next);
+    
+    
     var self = this;
     self.userList = [];
     var callback = function(error){
@@ -65,9 +71,12 @@ userController.prototype.login = function(request, response, next){
         response.status(404);
         response.send("password can not be null");
     }
+    
+    var token = jwt.sign({sub:email, iss: config.parameters().tokenIssue}, config.parameters().tokenPassword);
+    var user = {name: "renato matos", email: email, accessToken: token};
 
     response.status(201);
-    response.send({"token": "12121212121221"});
+    response.json(user);
 };
 
 userController.prototype.createUser = function(request, response, next){
