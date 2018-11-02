@@ -39,6 +39,7 @@ app.use('/', function(request, response, next){
     var allowed = (request.url === "/") || 
                   (_.startsWith(request.url, '/api/v1/user/login')) || 
                   (_.startsWith(request.url, '/api/v1/check')) || 
+                  (_.startsWith(request.url, '/api/v1/parameter')) || 
                   (_.startsWith(request.url, '/api-docs'));
 
     debug("url => ", request.url, " allowed => ", allowed);

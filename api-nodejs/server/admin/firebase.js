@@ -1,6 +1,6 @@
 var debug = require("debug")("training:admin:firebase");
 var admin = require("firebase-admin");
-var serviceAccount = require("../config/key/treinamento-fa36b-firebase-adminsdk-zoqok-2a025bedc6.json");
+var serviceAccount = require("../config/firebase/treinamento-fa36b-firebase-adminsdk-zoqok-2a025bedc6.json");
 var RSVP = require('rsvp');
 var mime = require('mime-types');
 var strings = require("../util/strings");

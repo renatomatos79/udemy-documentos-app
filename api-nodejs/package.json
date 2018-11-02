@@ -26,6 +26,7 @@
     "method-override": "^3.0.0",
     "mime-types": "^2.1.19",
     "moment": "^2.22.2",
+    "node-rsa": "^1.0.1",
     "path": "^0.12.7",
     "requestify": "^0.2.5",
     "rsvp": "^4.8.3",
