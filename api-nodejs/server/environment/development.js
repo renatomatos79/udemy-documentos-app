@@ -1,9 +1,9 @@
-var debug = require("debug")("treinamento:dist:dev");
+var debug = require("debug")("training:env:dev");
 
 // changes the env variable to developer mode
 process.env['APP_ENV'] = 'DEV';
 
-var app = require('../app');
+var app = require('../app/index');
 var port = (process.env.PORT_HTTP || 21088);
 app.set('port', port);
 

@@ -1,4 +1,4 @@
-var debug = require("debug")("treinamento:controller:upload");
+var debug = require("debug")("training:upload:controller");
 var fs = require("fs");
 var path = require('path');
 var strings = require("../util/strings");

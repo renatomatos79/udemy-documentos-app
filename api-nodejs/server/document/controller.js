@@ -1,9 +1,9 @@
-var debug = require("debug")("treinamento:controller:store");
+var debug = require("debug")("training:document:controller");
 var strings = require("../util/strings");
 
 function documentController(firebaseAdmin){
     this.firebaseAdmin = firebaseAdmin;
-    this.documentFirestore = require("../firebase/document")(firebaseAdmin);
+    this.documentFirestore = require("./firebase")(firebaseAdmin);
 }
 
 documentController.prototype.getDocuments = function(request, response, next){

@@ -1,10 +1,10 @@
-var debug = require("debug")("treinamento:routes:check");
+var debug = require("debug")("training:check:route");
 var express = require("express");
 var router = express.Router();
 
 module.exports = function(firebaseAdmin){
 
-    this.controller = require("../controller/check")(firebaseAdmin);
+    this.controller = require("./controller")(firebaseAdmin);
     
     router.get('/time', this.controller.time.bind(controller));
     router.get('/ping', this.controller.ping.bind(controller));

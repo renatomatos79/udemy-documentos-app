@@ -1,4 +1,4 @@
-var debug = require("debug")("treinamento:firebase:document");
+var debug = require("debug")("training:document:firebase");
 var RSVP = require('rsvp');
 var strings = require('../util/strings');
 
@@ -7,7 +7,7 @@ function documentFirebase(firebaseAdmin) {
 }
 
 documentFirebase.prototype.getUserDocuments = function(user_id) {
-    debug("treinamento:firebase:document.getUserDocuments...", " => ", user_id);
+    debug("getUserDocuments...", " => ", user_id);
     var self = this;
     var promise = new RSVP.Promise(function(resolve, reject) {
         try
@@ -35,7 +35,7 @@ documentFirebase.prototype.getUserDocuments = function(user_id) {
 }
 
 documentFirebase.prototype.createUser = function(json) {
-    debug("treinamento:firebase:document.createUser...", " => ", json);
+    debug("createUser...", " => ", json);
     var self = this;
     var promise = new RSVP.Promise(function(resolve, reject) {
         try
@@ -57,7 +57,7 @@ documentFirebase.prototype.createUser = function(json) {
 }
 
 documentFirebase.prototype.updateDocument = function(id, documentName) {
-    debug("treinamento:firebase:document.updateDocument...", " => ", id);
+    debug("updateDocument...", " => ", id);
     var self = this;
     var promise = new RSVP.Promise(function(resolve, reject) {
         try
@@ -80,7 +80,7 @@ documentFirebase.prototype.updateDocument = function(id, documentName) {
 }
 
 documentFirebase.prototype.deleteDocument = function(id) {
-    debug("treinamento:firebase:document.deleteDocument...", " => ", id);
+    debug("deleteDocument...", " => ", id);
     var self = this;
     var promise = new RSVP.Promise(function(resolve, reject) {
         try

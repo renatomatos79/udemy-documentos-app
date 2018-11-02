@@ -1,2 +1,2 @@
-export DEBUG=treinamento:*
-node dist/dev.js
+export DEBUG=training:*
+node server/environment/dev.js

@@ -1,2 +1,2 @@
-set DEBUG=treinamento:*
-nodemon dist/dev.js
+set DEBUG=training:*
+nodemon server/environment/development.js

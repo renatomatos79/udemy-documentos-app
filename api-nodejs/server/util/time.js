@@ -1,4 +1,4 @@
-var debug = require("debug")("treinamento:util:time");
+var debug = require("debug")("training:util:time");
 var strings = require("./strings");
 
 function timeUtil(){

@@ -3,8 +3,8 @@ var router = express.Router();
 
 module.exports = function(firebaseAdmin){
 
-    this.documentController = require("../controller/document")(firebaseAdmin);
-    this.userController = require("../controller/user")(firebaseAdmin);
+    this.documentController = require("../document/controller")(firebaseAdmin);
+    this.userController = require("../user/controller")(firebaseAdmin);
 
     router.get('/:userId/documents', documentController.getDocuments.bind(documentController));
     router.post('/:userId/document', documentController.createDocument.bind(documentController));

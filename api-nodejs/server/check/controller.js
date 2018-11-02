@@ -1,6 +1,6 @@
-var debug = require("debug")("treinamento:controller:check");
+var debug = require("debug")("training:check:controller");
 var time = require("../util/time");
-var pkg = require("../package.json");
+var pkg = require("../../package.json");
 
 function checkController(firebaseAdmin){
     this.firebaseAdmin = firebaseAdmin;

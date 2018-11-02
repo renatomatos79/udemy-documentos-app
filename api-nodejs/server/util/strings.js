@@ -1,3 +1,4 @@
+var debug = require("debug")("training:util:time");
 var base64 = require('base-64');
 
 function stringUtil(){}

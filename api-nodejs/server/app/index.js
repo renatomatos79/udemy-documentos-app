@@ -1,12 +1,14 @@
-var debug = require("debug")("treinamento:app");
+var debug = require("debug")("training:app:index");
 var express = require("express");
 var cors = require('cors')
 var methodOverride = require("method-override");
 var bodyParser = require("body-parser");
 var app = express();
 var swaggerUi = require('swagger-ui-express');
-var swaggerDocument = require('./docs/swagger.json');
-var jwt = require("./util/token")()
+var swaggerDocument = require('../../docs/swagger.json');
+var firebaseAdmin = require("../admin/firebase")();
+var jwt = require("../util/token")(firebaseAdmin);
+var routes = require('./route')(firebaseAdmin);
 var _ = require("lodash")
 
 // server config
@@ -51,7 +53,7 @@ app.use('/', function(request, response, next){
 });
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use('/api/v1', require('./routes/index'));
+app.use('/api/v1', routes);
 app.get('*', function(req, res){
     res.redirect('/api-docs');
 });

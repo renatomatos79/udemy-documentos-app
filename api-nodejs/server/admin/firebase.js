@@ -1,6 +1,6 @@
-var debug = require("debug")("treinamento:firebase:admin");
+var debug = require("debug")("training:admin:firebase");
 var admin = require("firebase-admin");
-var serviceAccount = require("../key/treinamento-fa36b-firebase-adminsdk-zoqok-2a025bedc6.json");
+var serviceAccount = require("../config/key/treinamento-fa36b-firebase-adminsdk-zoqok-2a025bedc6.json");
 var RSVP = require('rsvp');
 var mime = require('mime-types');
 var strings = require("../util/strings");
@@ -23,11 +23,10 @@ firebaseAdmin.prototype.auth = function(){
 }
 
 firebaseAdmin.prototype.fileUpload = function(filePath, remoteFile) {
-  debug("treinamento:firebase:admin.fileUpload...", " => ", filePath, " to ", remoteFile);
+  debug("fileUpload...", " => ", filePath, " to ", remoteFile);
   var self = this;
   var bucket = self.bucket;
   var fileMime = mime.lookup(filePath);
-  debug("fileMime: ", fileMime);
   // função responsável pelo upload usando bucket storage
   var bucketUpload = (filePath, remoteFile, fileMime) => {
       let uuid = strings.guid();
@@ -75,7 +74,7 @@ firebaseAdmin.prototype.fileUpload = function(filePath, remoteFile) {
 }
 
 firebaseAdmin.prototype.fileRemove = function(remoteFile) {
-    debug("treinamento:firebase:admin.fileRemove...", " => ", remoteFile);
+    debug("fileRemove...", " => ", remoteFile);
     return this.bucket.file(remoteFile).delete();            
 } 
 
