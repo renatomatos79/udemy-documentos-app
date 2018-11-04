@@ -69,7 +69,7 @@ userController.prototype.login = function(request, response, next){
     var parts = data.split('.');
 
     if (parts.length !== 2){
-        response.status(404);
+        response.status(400);
         response.send("Campo data em formato inválido");
     }
 
@@ -87,14 +87,19 @@ userController.prototype.login = function(request, response, next){
     console.log("cryptoKey => ", cryptoKey);
 
     // decripta o conteúdo enviado
-    var login_and_password = cripto.decrypt(cryptoAlgorithmic, cryptoKey, iv, content);
-    var login = login_and_password.split('|')[0];
-    var password = login_and_password.split('|')[1];
-
-    var token = jwt.sign({sub:login, iss: config.parameters().tokenIssue}, config.parameters().tokenPassword);
-    var user = {name: "renato matos", email: login, accessToken: token};    
-    response.status(201);
-    response.json(user);
+    try {
+        var login_and_password = cripto.decrypt(cryptoAlgorithmic, cryptoKey, iv, content);
+        var login = login_and_password.split('|')[0];
+        var password = login_and_password.split('|')[1];
+    
+        var token = jwt.sign({sub:login, iss: config.parameters().tokenIssue}, config.parameters().tokenPassword);
+        var user = {name: "renato matos", email: login, accessToken: token};    
+        response.status(201);
+        response.json(user);
+    } catch (error){
+        response.status(501);
+        response.json("Não foi possível decriptar o conteúdo informado!");
+    }    
 };
 
 userController.prototype.createUser = function(request, response, next){

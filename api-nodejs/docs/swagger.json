@@ -499,12 +499,17 @@
             "schema": {
               "type": "string",
               "example": {
-                "authorization": "f1687c4c-72b9-43b6-92c8-c4c029cd2429"
+                "name": "Renato Matos",
+                "email": "renato.matos79@gmail.com",
+                "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyZW5hdG8ubWF0b3M3OUBnbWFpbC5jb20iLCJpc3MiOiJ0cmVpbmFtZW50by1nb29nbGUtZmlyZWJhc2UiLCJpYXQiOjE1NDEyOTcxMTl9.r3CHuXVsGpLRLGlCljLLQ-RhV7r_P1fiJbyvCqXhOHk"
               }
             }
           },
           "400": {
-            "description": "documento mal formatado. Verificar o preenchimento dos campos email e senha"
+            "description": "documento mal formatado. Verificar o preenchimento do campo data"
+          },
+          "501": {
+            "description": "criptografia inválida"
           }
         }
       }
@@ -674,10 +679,7 @@
     "Login": {
       "type": "object",
       "properties": {
-        "email": {
-          "type": "string"
-        },
-        "password": {
+        "data": {
           "type": "string"
         }
       }
