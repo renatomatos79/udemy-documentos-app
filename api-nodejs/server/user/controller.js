@@ -2,6 +2,7 @@ var debug = require("debug")("training:user:controller");
 var strings = require("../util/strings");
 var jwt = require("jsonwebtoken")
 var config = require("../config/config")()
+var cripto = require("../util/crypto")()
 
 function userController(firebaseAdmin){
     this.firebaseAdmin = firebaseAdmin;
@@ -54,32 +55,46 @@ userController.prototype.getUsers = function(request, response, next){
 
 userController.prototype.login = function(request, response, next){
     var self = this;
-    
-    // catch input parameters
-    var email = request.body.email;
-    var password = request.body.password;
+    var data = request.body.data;
     
     // validação
-    if (strings.isEmpty(email) === true){
+    if (strings.isEmpty(data) === true){
         response.status(404);
-        response.send("e-mail can not be null");
+        response.send("Campo data não encontrado");
     }
-    if (strings.isEmpty(password) === true){
+    
+    // o campo data está em formato base64 e dividido em 2 partes
+    // parte 1: IV
+    // parte 2: login | senha
+    var parts = data.split('.');
+
+    if (parts.length !== 2){
         response.status(404);
-        response.send("password can not be null");
+        response.send("Campo data em formato inválido");
     }
 
-    self.firebaseAdmin.auth().getUserByEmail(email)
-        .then(function(userRecord) {
-            var token = jwt.sign({sub:email, iss: config.parameters().tokenIssue}, config.parameters().tokenPassword);
-            var user = {name: "renato matos", email: email, accessToken: token};    
-            response.status(201);
-            response.json(user);
-        })
-        .catch(function(error) {
-            response.status(501);
-            response.json({message: error});
-        });
+    // extrai os campos que estão criptografados
+    var iv = parts[0];
+    var content = parts[1];
+
+    // parametros para decriptar o texto
+    var cryptoAlgorithmic = config.parameters().cryptoAlgorithmic;
+    var cryptoKey = config.parameters().cryptoKey;
+
+    console.log("iv => ", iv);
+    console.log("content => ", content);
+    console.log("cryptoAlgorithmic => ", cryptoAlgorithmic);
+    console.log("cryptoKey => ", cryptoKey);
+
+    // decripta o conteúdo enviado
+    var login_and_password = cripto.decrypt(cryptoAlgorithmic, cryptoKey, iv, content);
+    var login = login_and_password.split('|')[0];
+    var password = login_and_password.split('|')[1];
+
+    var token = jwt.sign({sub:login, iss: config.parameters().tokenIssue}, config.parameters().tokenPassword);
+    var user = {name: "renato matos", email: login, accessToken: token};    
+    response.status(201);
+    response.json(user);
 };
 
 userController.prototype.createUser = function(request, response, next){
